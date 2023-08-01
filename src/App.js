@@ -6,8 +6,6 @@ import { PublicClientApplication } from '@azure/msal-browser';
 class App extends Component {
 
   constructor(props) {
-    // const [userAccount,setUserAccount]=useState();
-
     super(props);
     this.state = {
       error: null,
@@ -37,19 +35,12 @@ class App extends Component {
       await this.PublicClientApplication.loginPopup({
         scopes:config.scopes,
         prompt:"select_account",
-
-        // redirectUri:"http://localhost:3000/blank.html"
-
-
       }).then((response)=>{
         this.PublicClientApplication.setActiveAccount(response.account);
       });
-
-  //    console.log(this.PublicClientApplication.getAllAccounts().map((x)=>(x.name)))
        this.userAccount.user= this.PublicClientApplication.getActiveAccount();
       this.state.user= this.PublicClientApplication.getActiveAccount();
       console.log(this.userAccount.user);
-   //   console.log(this.PublicClientApplication.getActiveAccount())
       this.setState({isAuthenticated:true})
     }
     catch(err){
@@ -59,15 +50,8 @@ class App extends Component {
         error:err
       });
     }
-
-
   }
-  logout(){
-    this.PublicClientApplication.logout();
-  }
-
   render(){
-
     return (
       <div className='App'>
         <header className='header'>
@@ -77,14 +61,9 @@ class App extends Component {
             <button onClick={()=>this.login()} >Login </button>
           </p>
           }
-
         </header>
       </div>
     )
   }
-
-
-
 }
-
 export default App;
